@@ -58,15 +58,17 @@ class Trainer:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    def evaluate(self, img, threshold=0.5):
+    def evaluate(self, img, threshold=0.2):
         finetuned_model = self.model
         result = finetuned_model([img], verbose=False)[0]
         preds = []
         for confidence, box in zip(result.boxes.conf, result.boxes.xywh):
-            # confidence = confidence.item()
             confidence = 1.0
-            if confidence <= threshold:
-                continue
+            # confidence = confidence.item()
+            # if confidence <= threshold:
+            #     continue
+            # else:
+            #     confidence = 1.0
             x_center, y_center, width, height = box
             x_center = int(x_center)
             y_center = int(y_center)
